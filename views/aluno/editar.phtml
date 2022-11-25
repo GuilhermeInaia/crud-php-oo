@@ -1,3 +1,6 @@
+<?php 
+    $aluno = $dados[0];
+?>
 <section class="mt-3 card card-body">
     <h1>Editar Aluno</h1>
 
@@ -5,19 +8,19 @@
         <div class="col">
             <form action="" method="POST">
                 <label for="nome">Nome</label>
-                <input name="nome" type="text" id="nome" class="form-control mb-3" value="<?php echo $dados[0]->nome; ?>">
+                <input name="nome" type="text" id="nome" class="form-control mb-3" value="<?php echo $aluno->nome; ?>">
 
                 <label for="email">Email</label>
-                <input name="email" type="text" id="email" class="form-control mb-3" value="<?php echo $dados[0]->email; ?>">
+                <input name="email" type="text" id="email" class="form-control mb-3" value="<?php echo $aluno->email; ?>">
 
                 <label for="genero">Genero</label>
-                <input name="genero" type="text" id="genero" class="form-control mb-3" value="<?php echo $dados[0]->genero; ?>">
+                <input name="genero" type="text" id="genero" class="form-control mb-3" value="<?php echo $aluno->genero; ?>">
 
                 <label for="nascimento">Data Nasimento</label>
-                <input name="nascimento" type="date" id="nascimento" class="form-control mb-3" value="<?php echo date("Y-m-d", strtotime($dados[0]->dataNascimento)); ?>">
+                <input name="nascimento" type="date" id="nascimento" class="form-control mb-3" value="<?php echo date("Y-m-d", strtotime($aluno->dataNascimento)); ?>">
 
                 <label for="cpf">CPF</label>
-                <input name="cpf" type="text" id="cpf" class="form-control mb-3" value="<?php echo $dados[0]->cpf; ?>">
+                <input name="cpf" type="text" id="cpf" class="form-control mb-3" value="<?php echo $aluno->cpf; ?>">
 
                 <button class=" btn btn-primary">Editar</button>
 
