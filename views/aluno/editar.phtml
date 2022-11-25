@@ -1,0 +1,27 @@
+<section class="mt-3 card card-body">
+    <h1>Editar Aluno</h1>
+
+    <div class="row">
+        <div class="col">
+            <form action="" method="POST">
+                <label for="nome">Nome</label>
+                <input name="nome" type="text" id="nome" class="form-control mb-3" value="<?php echo $dados[0]->nome; ?>">
+
+                <label for="email">Email</label>
+                <input name="email" type="text" id="email" class="form-control mb-3" value="<?php echo $dados[0]->email; ?>">
+
+                <label for="genero">Genero</label>
+                <input name="genero" type="text" id="genero" class="form-control mb-3" value="<?php echo $dados[0]->genero; ?>">
+
+                <label for="nascimento">Data Nasimento</label>
+                <input name="nascimento" type="date" id="nascimento" class="form-control mb-3" value="<?php echo date("Y-m-d", strtotime($dados[0]->dataNascimento)); ?>">
+
+                <label for="cpf">CPF</label>
+                <input name="cpf" type="text" id="cpf" class="form-control mb-3" value="<?php echo $dados[0]->cpf; ?>">
+
+                <button class=" btn btn-primary">Editar</button>
+
+            </form>
+        </div>
+    </div>
+</section>
