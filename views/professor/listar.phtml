@@ -20,7 +20,7 @@
 
         <tbody>
             <?php
-            foreach ($professores as $professor) {
+            foreach ($professores ?? [] as $professor) {
                 echo "
                     <tr>
                         <td>{$professor->id}</td>
