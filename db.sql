@@ -20,7 +20,9 @@ VALUE ('Guilherme', '12', 'guilherme@gmail.com', true, 'Masculino', '1983-03-23'
 
 SELECT * FROM tb_alunos;
 
+------------------------------------------
 
+USE db_escola;
 
 CREATE TABLE tb_professores (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -34,10 +36,13 @@ CREATE TABLE tb_professores (
 INSERT INTO tb_professores (nome, endereco, formacao, status,cpf)
 VALUE ('Alessandro', 'Rua 1', 'PHP', true, '23445767887'),
 ('Allan', 'Rua 2', 'JavaScript', true, '84733074394'),
-('Leandro', 'Rua 3', 'React', true, '29385473821');
+('Gledson', 'Rua 3', 'React', true, '29385473821');
 
 SELECT * FROM tb_professores;
 
+---------------------------------------
+
+USE db_escola;
 
 CREATE TABLE tb_cursos (
     id INT PRIMARY KEY AUTO_INCREMENT,

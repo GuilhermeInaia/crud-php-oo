@@ -52,19 +52,37 @@ class AlunoController extends AbstractController
             // die('Aconteceu um erro que não sei');
         }
 
-
         $this->redirect('/alunos/listar');
     }
 
     public function editar(): void
     {
-        if (true === empty($_POST)) {
-            $id = $_GET['id'];
-            $repository = new AlunoRepository();
-            $aluno = $repository->buscarUm($id);
-            if (true === empty($_POST)) {
-                $this->render('aluno/editar', [$aluno]);
+        $id = $_GET['id'];
+        $repository = new AlunoRepository();
+        $aluno = $repository->buscarUm($id);
+        $this->render('aluno/editar', [$aluno]);
+
+        if (false === empty($_POST)) {
+            $aluno->nome = $_POST['nome'];
+            $aluno->dataNascimento = $_POST['nascimento'];
+            $aluno->cpf = $_POST['cpf'];
+            $aluno->email = $_POST['email'];
+            $aluno->genero = $_POST['genero'];
+            
+            try{
+                $repository->atualizar($aluno, $id);
+            } catch(Exception $exception) {
+                if (true === str_contains($exception->getMessage(), 'cpf')) {
+                    die('CPF já existe!');
+                }
+
+                if (true === str_contains($exception->getMessage(), 'email')) {
+                    die('Email já existe!');
+                }
+
+                // die('Vish, aconteceu um erro');
             }
+            $this->redirect('/alunos/listar');
         }
     }
 
