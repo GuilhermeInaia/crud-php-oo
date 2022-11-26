@@ -11,9 +11,7 @@ use PDO;
 class AlunoRepository implements RepositoryInterface
 {
     public const TABLE = 'tb_alunos';
-
     public PDO $pdo;
-
     public function __construct()
     {
         $this->pdo = DataBaseConnection::abrirConexao();

@@ -5,39 +5,58 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Connection\DataBaseConnection;
+use App\Model\Curso;
+use PDO;
 
 class CursoRepository implements RepositoryInterface
 {
-    public function buscarTodos(): iterable
+    public const TABLE = 'tb_cursos';
+    public PDO $pdo;
+    public function __construct()
     {
-        $conexao = DataBaseConnection::abrirConexao();
-
-        $sql = 'SELECT * FROM tb_alunos';
-
-        // preparando para executar no banco de dados
-        $query = $conexao->query($sql);
-
-        $query->execute(); // executando o comando lá no banco de dados
-
-        return $query->fetchAll(); // pegando os dados do banco e transformando em array
+        $this->pdo = DataBaseConnection::abrirConexao();
     }
 
-    public function buscarUm(string $id): ?object
+    public function buscarTodos(): iterable
     {
-        return new \stdClass;
+        $sql = 'SELECT * FROM ' . self::TABLE;
+        $query = $this->pdo->query($sql);
+        $query->execute(); 
+        return $query->fetchAll(PDO::FETCH_CLASS, Curso::class);
+    }
+
+    public function buscarUm(string $id): object
+    {
+        $sql = "SELECT * FROM " . self::TABLE . " WHERE id = '{$id}' ";
+        $query = $this->pdo->query($sql);
+        $query->execute();
+        return $query->fetchObject(Curso::class);
     }
 
     public function inserir(object $dados): object
     {
+        $sql = "INSERT INTO " . self::TABLE . "(nome, cargaHoraria, descricao, status)" . "VALUE ('{$dados->nome}', '{$dados->cargaHoraria}', '{$dados->descricao}', '1')";
+        $this->pdo->query($sql);
         return $dados;
     }
 
     public function atualizar(object $novoDados, string $id): object
     {
+        $sql = "UPDATE " . self::TABLE . "
+        SET 
+            nome = '{$novoDados->nome}',
+            cargaHoraria = '{$novoDados->cargaHoraria}',
+            descricao = '{$novoDados->descricao}'
+
+        WHERE id = '{$id}';";
+
         return $novoDados;
     }
 
     public function excluir(string $id): void
     {
+        $sql = "DELETE FROM " . self::TABLE . " WHERE id = '{$id}' ";
+        $query = $this->pdo->query($sql);
+        $query->execute();
     }
 }

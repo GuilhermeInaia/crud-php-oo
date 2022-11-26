@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Model\Professor;
 use App\Repository\ProfessorRepository;
+use Dompdf\Dompdf;
 use Exception;
 
 class ProfessorController extends AbstractController
@@ -79,5 +80,24 @@ class ProfessorController extends AbstractController
         $repository = new ProfessorRepository();
         $repository->excluir($id);
         $this->redirect("\professores\listar");
+    }
+
+    public function relatorio(): void
+    {
+        $hoje = date('d/m/Y');
+
+        $design = "
+        <h1>Relatorio de Professores</h1>
+        <hr>
+        <em>Gerando em {$hoje}</em>
+        ";
+
+        $dompdf = new Dompdf();
+        $dompdf->setPaper('A4', 'portrait'); 
+
+        $dompdf->loadHtml(($design)); 
+
+        $dompdf->render();
+        $dompdf->stream(); 
     }
 }
