@@ -56,3 +56,22 @@ INSERT INTO tb_cursos (nome, cargaHoraria, descricao, status)
 VALUE ('Desenvolvedor Full-Stack', '08:00 às 12:00', 'Curso Tecnico', true),
 ('Marketing Digital', '13:00 às 16:00', 'Curso Tecnico', true),
 ('Data Analytics', '18:00 às 22:00', 'Curso Tecnico', true);
+
+SELECT * FROM tb_cursos;
+-------------------------------------------
+
+USE db_escola;
+
+CREATE TABLE tb_categorias (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(55) NOT NULL,
+    vagas VARCHAR(55) NOT NULL,
+    localidade VARCHAR (55) NOT NULL
+);
+
+INSERT INTO tb_categorias (nome, vagas, localidade)
+VALUE ('Desenvolvedor Full-Stack', '24', 'Aldeota'),
+('Marketing Digital', '24', 'Washington Soares'),
+('Data Analytics', '24', 'Aldeota');
+
+SELECT * FROM tb_categorias;

@@ -57,8 +57,9 @@ class CursoController extends AbstractController
             $curso->nome = $_POST['nome'];
             $curso->cargaHoraria = $_POST['horario'];
             $curso->descricao = $_POST['descricao'];
+            
+            $this->redirect('/cursos/listar');
         }
-        $this->redirect('/cursos/listar');
     }
 
     public function excluir(): void
@@ -84,7 +85,6 @@ class CursoController extends AbstractController
         $dompdf->setPaper('A4', 'portrait'); 
 
         $dompdf->loadHtml(($design)); 
-
         $dompdf->render();
         $dompdf->stream(); 
     }

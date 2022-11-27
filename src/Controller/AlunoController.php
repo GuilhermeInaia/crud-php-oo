@@ -97,21 +97,19 @@ class AlunoController extends AbstractController
 
     public function relatorio(): void
     {
-
         $hoje = date('d/m/Y');
 
-        $design = "
+        $desing = "
         <h1>Relatorio de Alunos</h1>
         <hr>
         <em>Gerando em {$hoje}</em>
-        ";
+        <hr>"; 
 
         $dompdf = new Dompdf();
+        $dompdf->loadHtml($desing); // carrega o conteudo do PDF
         $dompdf->setPaper('A4', 'portrait'); // tamanho da pagina
-
-        $dompdf->loadHtml(($design)); // carrega o conteudo do PDF
-
         $dompdf->render(); // aqui renderiza
         $dompdf->stream(); // é aqui que a magica acontece
     }
+    
 }
