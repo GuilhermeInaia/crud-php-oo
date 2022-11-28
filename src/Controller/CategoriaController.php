@@ -11,10 +11,17 @@ use Dompdf\Dompdf;
 
 class CategoriaController extends AbstractController
 {
+    private CategoriaRepository $repository;
+
+    public function __construct()
+    {
+        $this->repository = new CategoriaRepository();
+    }
+
     public function listar(): void
     {
-        $repository = new CategoriaRepository();
-        $categorias = $repository->buscarTodos();
+        // $repository = new CategoriaRepository();
+        $categorias = $this->repository->buscarTodos();
         $this->render('categoria/listar', [
             'categorias' => $categorias,
         ]);
@@ -32,9 +39,9 @@ class CategoriaController extends AbstractController
         $categoria->vagas = $_POST['vagas'];
         $categoria->localidade = $_POST['localidade'];
 
-        $repository = new CategoriaRepository();
+        // $repository = new CategoriaRepository();
         try {
-            $repository->inserir($categoria);
+            $this->repository->inserir($categoria);
         } catch (Exception) {
            
         }
@@ -44,8 +51,8 @@ class CategoriaController extends AbstractController
     public function editar(): void
     {
         $id = $_GET['id'];
-        $repository = new CategoriaRepository();
-        $categoria = $repository->buscarUm($id);
+        // $repository = new CategoriaRepository();
+        $categoria = $this->repository->buscarUm($id);
         $this->render('categoria/editar', [$categoria]);
 
         if (false === empty($_POST)) {
@@ -54,7 +61,7 @@ class CategoriaController extends AbstractController
             $categoria->localidade = $_POST['localidade'];
 
             try{
-                $repository->atualizar($categoria, $id);
+                $this->repository->atualizar($categoria, $id);
             } catch(Exception $exception) {
     
             }
@@ -65,25 +72,53 @@ class CategoriaController extends AbstractController
     public function excluir(): void
     {
         $id = $_GET['id'];
-        $repository = new CategoriaRepository();
-        $repository->excluir($id);
+        // $repository = new CategoriaRepository();
+        $this->repository->excluir($id);
         $this->redirect("\categorias\listar");
+    }
+
+    private function redirecionar(iterable $categorias){
+        $resultado = '';
+        foreach ($categorias as $categorias) {
+        $resultado .= "
+            <tr>
+                <td>{$categorias->id}</td>
+                <td>{$categorias->nome}</td>
+                <td>{$categorias->vagas}</td>
+                <td>{$categorias->localidade}</td>
+            </tr>";
+            }
+            return $resultado;
     }
 
     public function relatorio(): void
     {
         $hoje = date('d/m/Y');
-
+        $categoria = $this->repository->buscarTodos();
         $design = "
         <h1>Relatorio de Categoria</h1>
         <hr>
         <em>Gerando em {$hoje}</em>
+        <hr>
+        <table border='1' width='100%' style='margin-top: 30px;'>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Vagas</th>
+                    <th>Localidade</th>
+                </tr>
+            </thead>
+            <tbody>
+            ".$this->redirecionar($categoria)."
+            </tbody>
+        </table>
         ";
 
         $dompdf = new Dompdf();
         $dompdf->setPaper('A4', 'portrait'); 
         $dompdf->loadHtml(($design)); 
         $dompdf->render();
-        $dompdf->stream();
+        $dompdf->stream('Relatorio-Categorias.pdf', ['Attachment' => 0]);
     }
 }

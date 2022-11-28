@@ -20,7 +20,6 @@ class CursoController extends AbstractController
     public function listar(): void 
     {
         //$repository = new CursoRepository();
-
         $cursos = $this->repository->buscarTodos();
 
         $this->render('curso/listar', [
@@ -47,7 +46,6 @@ class CursoController extends AbstractController
         } catch (Exception) {
            
         }
-
         $this->redirect('/cursos/listar');
     }
 
