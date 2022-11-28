@@ -98,7 +98,6 @@ class AlunoController extends AbstractController
     public function relatorio(): void
     {
         $hoje = date('d/m/Y');
-
         $desing = "
         <h1>Relatorio de Alunos</h1>
         <hr>

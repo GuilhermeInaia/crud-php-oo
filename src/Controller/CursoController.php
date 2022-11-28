@@ -83,7 +83,6 @@ class CursoController extends AbstractController
 
         $dompdf = new Dompdf();
         $dompdf->setPaper('A4', 'portrait'); 
-
         $dompdf->loadHtml(($design)); 
         $dompdf->render();
         $dompdf->stream(); 
