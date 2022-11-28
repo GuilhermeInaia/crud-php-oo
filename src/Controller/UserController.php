@@ -17,8 +17,10 @@ class UserController extends AbstractController
 
     public function list(): void
     {
-        $user = $this->repository->findAll();
-        $this->render('user/listar');
+        $users = $this->repository->findAll();
+        $this->render('user/list', [
+            'users' => $users,
+        ]);
     }
 
     public function add(): void

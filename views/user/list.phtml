@@ -2,7 +2,7 @@
     <h1 class="">Gerenciar Usuarios</h1>
 
     <div class="mt-2">
-        <a href="/alunos/novo" class="btn btn-outline-dark">Novo Usuario</a>
+        <a href="/usuarios/novo" class="btn btn-outline-dark">Novo Usuario</a>
         <!-- <a href="/alunos/relatorio" target="_blank" class="btn btn-outline-dark">Gerar PDF</a> -->
     </div>
 
@@ -29,8 +29,8 @@
                         <td>{$user->senha}</td>
                         <td>{$user->perfil}</td>
                         <td> 
-                            <a href='/alunos/editar?id={$user->id}' class='btn btn-warning'>Editar</a>
-                            <a href='/alunos/excluir?id={$user->id}' class='btn btn-danger'>Excluir</a>
+                            <a href='/usuarios/editar?id={$user->id}' class='btn btn-warning'>Editar</a>
+                            <a href='/usuarios/excluir?id={$user->id}' class='btn btn-danger'>Excluir</a>
                         </td>
                         
                     </tr>

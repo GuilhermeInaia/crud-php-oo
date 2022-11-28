@@ -1,9 +1,7 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Controller;
-
 use App\Model\Aluno;
 use App\Repository\AlunoRepository;
 use Dompdf\Dompdf;
@@ -79,13 +77,13 @@ class AlunoController extends AbstractController
             try {
                 $this->repository->atualizar($aluno, $id);
             } catch (Exception $exception) {
-                if (true === str_contains($exception->getMessage(), 'cpf')) {
-                    die('CPF já existe!');
-                }
+                // if (true === str_contains($exception->getMessage(), 'cpf')) {
+                //     die('CPF já existe!');
+                // }
 
-                if (true === str_contains($exception->getMessage(), 'email')) {
-                    die('Email já existe!');
-                }
+                // if (true === str_contains($exception->getMessage(), 'email')) {
+                //     die('Email já existe!');
+                // }
 
                 // die('Vish, aconteceu um erro');
             }
@@ -102,6 +100,24 @@ class AlunoController extends AbstractController
         $this->redirect("\alunos\listar");
     }
 
+    private function redirecionar(iterable $alunos){
+        $resultado = '';
+        foreach ($alunos as $aluno) {
+        $resultado .= "
+            <tr>
+                <td>{$aluno->id}</td>
+                <td>{$aluno->nome}</td>
+                <td>{$aluno->matricula}</td>
+                <td>{$aluno->email}</td>
+                <td>{$aluno->status}</td>
+                <td>{$aluno->genero}</td>
+                <td>{$aluno->dataNascimento}</td>
+                <td>{$aluno->cpf}</td>
+            </tr>";
+            }
+            return $resultado;
+    }
+
     public function relatorio(): void
     {
         $hoje = date('d/m/Y');
@@ -116,30 +132,24 @@ class AlunoController extends AbstractController
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th>Matricula</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Gênero</th>
+                    <th>Data Nascimento</th>
+                    <th>CPF</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>{$aluno[0]->id}</td>
-                    <td>{$aluno[0]->nome}</td>
-                </tr>
-                <tr>
-                    <td>{$aluno[1]->id}</td>
-                    <td>{$aluno[1]->nome}</td>
-                </tr>
+            ".$this->redirecionar($aluno)."
             </tbody>
         </table>
-        
         ";
-
 
         $dompdf = new Dompdf();
         $dompdf->loadHtml($desing); // carrega o conteudo do PDF
         $dompdf->setPaper('A4', 'portrait'); // tamanho da pagina
         $dompdf->render(); // aqui renderiza
-        $dompdf->stream('Relatoria-Alunos.pdf', ['Attachment' => 0]); // é aqui que a magica acontece
+        $dompdf->stream('Relatorio-Alunos.pdf', ['Attachment' => 0]); // é aqui que a magica acontece
     }
 }

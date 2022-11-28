@@ -6,6 +6,7 @@ namespace App\Model;
 
 class Categoria 
 {
+    public int $id;
     public string $nome;
     public string $vagas;
     public string $localidade;

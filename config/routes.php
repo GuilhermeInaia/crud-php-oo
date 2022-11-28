@@ -6,6 +6,7 @@ use App\Controller\ProfessorController;
 use App\Controller\InicioController;
 use App\Controller\CategoriaController;
 use App\Controller\UserController;
+use App\Controller\AuthController;
 
 function criarRota(string $controllerNome, string $methodNome): array
 {
