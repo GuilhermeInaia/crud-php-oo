@@ -75,3 +75,19 @@ VALUE ('Desenvolvedor Full-Stack', '24', 'Aldeota'),
 ('Data Analytics', '24', 'Aldeota');
 
 SELECT * FROM tb_categorias;
+
+----------------------------------------
+USE db_escola;
+
+CREATE TABLE tb_user (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(55) NOT NULL,
+    email VARCHAR(55)UNIQUE NOT NULL,
+    senha VARCHAR (255) NOT NULL,
+    perfil VARCHAR (55) NOT NULL
+);
+
+INSERT INTO tb_user (nome, eamil, senha, perfil)
+VALUE ('Guilherme', 'guilherme@gmail.com', '', ),
+('Marketing Digital', '24', 'Washington Soares'),
+('Data Analytics', '24', 'Aldeota');

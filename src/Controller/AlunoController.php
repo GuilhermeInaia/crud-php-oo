@@ -11,11 +11,18 @@ use Exception;
 
 class AlunoController extends AbstractController
 {
+    private AlunoRepository $repository;
+
+    public function __construct()
+    {
+        $this->repository = new AlunoRepository();
+    }
+
     public function listar(): void // void não dará o retorno apenas redirecionamento das views
     {
-        $repository = new AlunoRepository();
+        //$repository = new AlunoRepository();
 
-        $alunos = $repository->buscarTodos();
+        $alunos = $this->repository->buscarTodos();
 
         $this->render('aluno/listar', [
             'alunos' => $alunos,
@@ -36,10 +43,10 @@ class AlunoController extends AbstractController
         $aluno->email = $_POST['email'];
         $aluno->genero = $_POST['genero'];
 
-        $repository = new AlunoRepository();
+        //$repository = new AlunoRepository();
 
         try {
-            $repository->inserir($aluno);
+            $this->repository->inserir($aluno);
         } catch (Exception $exception) {
             if (true === str_contains($exception->getMessage(), 'cpf')) {
                 die('CPf já existe!');
@@ -58,8 +65,8 @@ class AlunoController extends AbstractController
     public function editar(): void
     {
         $id = $_GET['id'];
-        $repository = new AlunoRepository();
-        $aluno = $repository->buscarUm($id);
+        // $repository = new AlunoRepository();
+        $aluno = $this->repository->buscarUm($id);
         $this->render('aluno/editar', [$aluno]);
 
         if (false === empty($_POST)) {
@@ -68,10 +75,10 @@ class AlunoController extends AbstractController
             $aluno->cpf = $_POST['cpf'];
             $aluno->email = $_POST['email'];
             $aluno->genero = $_POST['genero'];
-            
-            try{
-                $repository->atualizar($aluno, $id);
-            } catch(Exception $exception) {
+
+            try {
+                $this->repository->atualizar($aluno, $id);
+            } catch (Exception $exception) {
                 if (true === str_contains($exception->getMessage(), 'cpf')) {
                     die('CPF já existe!');
                 }
@@ -90,25 +97,49 @@ class AlunoController extends AbstractController
     {
         //$this->render('aluno/excluir');
         $id = $_GET['id'];
-        $repository = new AlunoRepository();
-        $repository->excluir($id);
+        //$repository = new AlunoRepository();
+        $this->repository->excluir($id);
         $this->redirect("\alunos\listar");
     }
 
     public function relatorio(): void
     {
         $hoje = date('d/m/Y');
+        $aluno = $this->repository->buscarTodos();
         $desing = "
         <h1>Relatorio de Alunos</h1>
         <hr>
         <em>Gerando em {$hoje}</em>
-        <hr>"; 
+        <hr>
+        <table border='1' width='100%' style='margin-top: 30px;'>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{$aluno[0]->id}</td>
+                    <td>{$aluno[0]->nome}</td>
+                </tr>
+                <tr>
+                    <td>{$aluno[1]->id}</td>
+                    <td>{$aluno[1]->nome}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        ";
+
 
         $dompdf = new Dompdf();
         $dompdf->loadHtml($desing); // carrega o conteudo do PDF
         $dompdf->setPaper('A4', 'portrait'); // tamanho da pagina
         $dompdf->render(); // aqui renderiza
-        $dompdf->stream(); // é aqui que a magica acontece
+        $dompdf->stream('Relatoria-Alunos.pdf', ['Attachment' => 0]); // é aqui que a magica acontece
     }
-    
 }
