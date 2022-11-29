@@ -21,7 +21,7 @@ class CursoRepository implements RepositoryInterface
     {
         $sql = 'SELECT * FROM ' . self::TABLE;
         $query = $this->pdo->query($sql);
-        $query->execute(); 
+        $query->execute();
         return $query->fetchAll(PDO::FETCH_CLASS, Curso::class);
     }
 
@@ -42,13 +42,12 @@ class CursoRepository implements RepositoryInterface
 
     public function atualizar(object $novoDados, string $id): object
     {
-        $sql = "UPDATE " . self::TABLE . "
-        SET 
+        $sql = "UPDATE " . self::TABLE .
+            " SET 
             nome = '{$novoDados->nome}',
             cargaHoraria = '{$novoDados->cargaHoraria}',
-            descricao = '{$novoDados->descricao}'
-
-        WHERE id = '{$id}';";
+            descricao = '{$novoDados->descricao}' WHERE id = '{$id}';";
+        $this->pdo->query($sql);
 
         return $novoDados;
     }

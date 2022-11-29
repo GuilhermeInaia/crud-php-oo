@@ -41,7 +41,7 @@ class ProfessorRepository implements RepositoryInterface
     public function inserir(object $dados): object
     {
         $sql = "INSERT INTO " . self::TABLE . "(nome, endereco, formacao, status, cpf) " .
-        "VALUE ('{$dados->nome}', '{$dados->endereco}','{$dados->formacao}', '1', '{$dados->cpf}');";
+            "VALUE ('{$dados->nome}', '{$dados->endereco}','{$dados->formacao}', '1', '{$dados->cpf}');";
         $this->pdo->query($sql);
         return $dados;
     }
@@ -49,7 +49,7 @@ class ProfessorRepository implements RepositoryInterface
     public function atualizar(object $novoDados, string $id): object
     {
         $sql = "UPDATE " . self::TABLE .
-        "SET
+            " SET
             nome='{$novoDados->nome}',
             endereco='{$novoDados->endereco}',
             formacao='{$novoDados->formacao}',

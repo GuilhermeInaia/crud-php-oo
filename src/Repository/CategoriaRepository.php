@@ -20,7 +20,7 @@ class CategoriaRepository implements RepositoryInterface
     {
         $sql = 'SELECT * FROM ' . self::TABLE;
         $query = $this->pdo->query($sql);
-        $query->execute(); 
+        $query->execute();
         return $query->fetchAll(PDO::FETCH_CLASS, Categoria::class);
     }
 
@@ -34,16 +34,16 @@ class CategoriaRepository implements RepositoryInterface
 
     public function inserir(object $dados): object
     {
-        $sql = "INSERT INTO " . self::TABLE . "(nome, vagas, localidade)" . 
-        "VALUE ('{$dados->nome}', '{$dados->vagas}', '{$dados->localidade}')";
+        $sql = "INSERT INTO " . self::TABLE . "(nome, vagas, localidade)" .
+            "VALUE ('{$dados->nome}', '{$dados->vagas}', '{$dados->localidade}')";
         $this->pdo->query($sql);
         return $dados;
     }
 
     public function atualizar(object $novoDados, string $id): object
     {
-        $sql = "UPDATE " . self::TABLE . "
-        SET 
+        $sql = "UPDATE " . self::TABLE .
+            " SET 
             nome = '{$novoDados->nome}',
             vagas = '{$novoDados->vagas}',
             localidade = '{$novoDados->localidade}'

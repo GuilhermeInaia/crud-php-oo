@@ -82,15 +82,15 @@ class AlunoController extends AbstractController
             try {
                 $this->repository->atualizar($aluno, $id);
             } catch (Exception $exception) {
-                // if (true === str_contains($exception->getMessage(), 'cpf')) {
-                //     die('CPF já existe!');
-                // }
+                if (true === str_contains($exception->getMessage(), 'cpf')) {
+                    die('CPF já existe!');
+                }
 
-                // if (true === str_contains($exception->getMessage(), 'email')) {
-                //     die('Email já existe!');
-                // }
+                if (true === str_contains($exception->getMessage(), 'email')) {
+                    die('Email já existe!');
+                }
 
-                // die('Vish, aconteceu um erro');
+                die('Vish, aconteceu um erro');
             }
             $this->redirect('/alunos/listar');
         }
