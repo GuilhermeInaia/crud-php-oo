@@ -88,4 +88,7 @@ CREATE TABLE tb_user (
 );
 
 INSERT INTO tb_user (nome, eamil, senha, perfil)
-VALUE ('Guilherme', 'gui@yahoo.com', '1234', );
+VALUE ('Guilherme', 'gui@yahoo.com', '1234', 'normal' );
+
+------------------------------------------------
+SELECT tb_cursos.nome, tb_cursos.cargaHoraria, tb_cursos.descricao, tb_cursos.status, tb_categorias.vagas, tb_categorias.localidade FROM tb_cursos INNER JOIN tb_categorias ON tb_cursos.id = tb_categorias.id
