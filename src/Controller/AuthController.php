@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
+namespace App\Controller;
+
 use App\Controller\AbstractController;
 use App\Repository\UserRepository;
+use App\Security\UserSecurity;
 
 class AuthController extends AbstractController
 {
@@ -15,11 +18,31 @@ class AuthController extends AbstractController
 
     public function login(): void
     {
+        if (false === empty($_POST)) {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            $user = $this->userRepository->findOneByEmail($email);
+
+            if (false === $user) {
+                die('Email não existe!');
+            }
+            if (false === password_verify($password, $user->senha)) {
+                die('Senha não existe!');
+            }
+
+            UserSecurity::connect($user);
+            $this->redirect('alunos/listar');
+
+            return;
+        }
         //$this->render('auth/login', [], false);
         $this->render('auth/login', navbar: false); // apenas a partir do PHP8
     }
 
     public function logout(): void
     {
+        UserSecurity::disconnect();
+        $this->redirect('/login');
     }
 }

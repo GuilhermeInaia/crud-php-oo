@@ -4,11 +4,9 @@ use App\Connection\DataBaseConnection;
 
 include_once '../vendor/autoload.php'; // solicitando o composer que gerencie o carregamento automatioc dos arquivos
 
-include '../config/database.php';
+session_start();
 
-// var_dump(
-//     DataBaseConnection::abrirConexao()
-// );
+include '../config/database.php';
 
 $rotas = require '../config/routes.php';
 

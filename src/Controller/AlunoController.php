@@ -1,9 +1,12 @@
 <?php
 
 declare(strict_types=1);
+
 namespace App\Controller;
+
 use App\Model\Aluno;
 use App\Repository\AlunoRepository;
+use App\Security\UserSecurity;
 use Dompdf\Dompdf;
 use Exception;
 
@@ -19,7 +22,9 @@ class AlunoController extends AbstractController
     public function listar(): void // void não dará o retorno apenas redirecionamento das views
     {
         //$repository = new AlunoRepository();
-
+        if (UserSecurity::isLogged() === false) {
+            die('Erro, precisa estar logado.');
+        }
         $alunos = $this->repository->buscarTodos();
 
         $this->render('aluno/listar', [
@@ -100,10 +105,11 @@ class AlunoController extends AbstractController
         $this->redirect("\alunos\listar");
     }
 
-    private function redirecionar(iterable $alunos){
+    private function redirecionar(iterable $alunos)
+    {
         $resultado = '';
         foreach ($alunos as $aluno) {
-        $resultado .= "
+            $resultado .= "
             <tr>
                 <td>{$aluno->id}</td>
                 <td>{$aluno->nome}</td>
@@ -114,8 +120,8 @@ class AlunoController extends AbstractController
                 <td>{$aluno->dataNascimento}</td>
                 <td>{$aluno->cpf}</td>
             </tr>";
-            }
-            return $resultado;
+        }
+        return $resultado;
     }
 
     public function relatorio(): void
@@ -141,7 +147,7 @@ class AlunoController extends AbstractController
                 </tr>
             </thead>
             <tbody>
-            ".$this->redirecionar($aluno)."
+            " . $this->redirecionar($aluno) . "
             </tbody>
         </table>
         ";

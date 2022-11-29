@@ -10,7 +10,8 @@
     </div>
 
     <div class="text-end">
-        <a href="/logout" class="btn btn-outline-danger">Desconectar</a>
+        Bem vindo, <?php echo App\Security\UserSecurity::getUser()->nome ?>
+        <a href="/desconectar" class="btn btn-outline-danger">Desconectar</a>
     </div>
 
 </nav>
