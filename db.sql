@@ -88,6 +88,4 @@ CREATE TABLE tb_user (
 );
 
 INSERT INTO tb_user (nome, eamil, senha, perfil)
-VALUE ('Guilherme', 'guilherme@gmail.com', '', ),
-('Marketing Digital', '24', 'Washington Soares'),
-('Data Analytics', '24', 'Aldeota');
+VALUE ('Guilherme', 'gui@yahoo.com', '1234', );

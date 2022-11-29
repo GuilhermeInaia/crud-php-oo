@@ -1,9 +1,7 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Controller;
-
 use App\Model\Professor;
 use App\Repository\ProfessorRepository;
 use Dompdf\Dompdf;

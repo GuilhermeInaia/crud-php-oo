@@ -1,13 +1,11 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Controller;
-
 use App\Model\Categoria;
 use App\Repository\CategoriaRepository;
-use Exception;
 use Dompdf\Dompdf;
+use Exception;
 
 class CategoriaController extends AbstractController
 {

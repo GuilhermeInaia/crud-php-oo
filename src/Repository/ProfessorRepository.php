@@ -1,9 +1,7 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Repository;
-
 use App\Connection\DataBaseConnection;
 use App\Model\Professor;
 use PDO;
@@ -11,9 +9,7 @@ use PDO;
 class ProfessorRepository implements RepositoryInterface
 {
     public const TABLE = 'tb_professores';
-
     public PDO $pdo;
-
     public function __construct()
     {
         $this->pdo = DataBaseConnection::abrirConexao();
@@ -22,11 +18,8 @@ class ProfessorRepository implements RepositoryInterface
     public function buscarTodos(): iterable
     {
         $sql = 'SELECT *FROM ' .  self::TABLE;
-
         $query = $this->pdo->query($sql);
-
         $query->execute();
-
         return $query->fetchAll(PDO::FETCH_CLASS, Professor::class);
     }
 
@@ -40,8 +33,7 @@ class ProfessorRepository implements RepositoryInterface
 
     public function inserir(object $dados): object
     {
-        $sql = "INSERT INTO " . self::TABLE . "(nome, endereco, formacao, status, cpf) " .
-            "VALUE ('{$dados->nome}', '{$dados->endereco}','{$dados->formacao}', '1', '{$dados->cpf}');";
+        $sql = "INSERT INTO " . self::TABLE . "(nome, endereco, formacao, status, cpf) " . "VALUE ('{$dados->nome}', '{$dados->endereco}','{$dados->formacao}', '1', '{$dados->cpf}');";
         $this->pdo->query($sql);
         return $dados;
     }

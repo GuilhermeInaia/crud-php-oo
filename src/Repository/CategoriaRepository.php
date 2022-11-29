@@ -1,9 +1,7 @@
 <?php
 
 declare(strict_types=1);
-
 namespace App\Repository;
-
 use App\Connection\DataBaseConnection;
 use App\Model\Categoria;
 use PDO;
@@ -16,6 +14,7 @@ class CategoriaRepository implements RepositoryInterface
     {
         $this->pdo = DataBaseConnection::abrirConexao();
     }
+
     public function buscarTodos(): iterable
     {
         $sql = 'SELECT * FROM ' . self::TABLE;
@@ -34,8 +33,7 @@ class CategoriaRepository implements RepositoryInterface
 
     public function inserir(object $dados): object
     {
-        $sql = "INSERT INTO " . self::TABLE . "(nome, vagas, localidade)" .
-            "VALUE ('{$dados->nome}', '{$dados->vagas}', '{$dados->localidade}')";
+        $sql = "INSERT INTO " . self::TABLE . "(nome, vagas, localidade)" . "VALUE ('{$dados->nome}','{$dados->vagas}','{$dados->localidade}');";
         $this->pdo->query($sql);
         return $dados;
     }
@@ -46,9 +44,8 @@ class CategoriaRepository implements RepositoryInterface
             " SET 
             nome = '{$novoDados->nome}',
             vagas = '{$novoDados->vagas}',
-            localidade = '{$novoDados->localidade}'
-
-        WHERE id = '{$id}';";
+            localidade = '{$novoDados->localidade}' WHERE id = '{$id}';";
+        $this->pdo->query($sql);
 
         return $novoDados;
     }

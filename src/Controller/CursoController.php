@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace App\Controller;
 use App\Model\Curso;
 use App\Repository\CursoRepository;
-use Exception;
 use Dompdf\Dompdf;
+use Exception;
 
 
 class CursoController extends AbstractController
@@ -21,7 +21,6 @@ class CursoController extends AbstractController
     {
         //$repository = new CursoRepository();
         $cursos = $this->repository->buscarTodos();
-
         $this->render('curso/listar', [
             'cursos' => $cursos,
         ]);
@@ -40,7 +39,6 @@ class CursoController extends AbstractController
         $curso->descricao = $_POST['descricao'];
 
         //$repository = new CursoRepository();
-
         try {
             $this->repository->inserir($curso);
         } catch (Exception) {
@@ -61,6 +59,11 @@ class CursoController extends AbstractController
             $curso->cargaHoraria = $_POST['horario'];
             $curso->descricao = $_POST['descricao'];
             
+            try{
+                $this->repository->atualizar($curso, $id);
+            } catch(Exception $exception) {
+
+            }
             $this->redirect('/cursos/listar');
         }
     }
