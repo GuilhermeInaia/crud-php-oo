@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace App\Controller;
 use App\Model\Professor;
+use App\Notification\WebNotification;
 use App\Repository\ProfessorRepository;
 use Dompdf\Dompdf;
 use Exception;
@@ -48,6 +49,7 @@ class ProfessorController extends AbstractController
                 die('CPF já existe!');
             }
         }
+        WebNotification::add('Novo Aluno Cadastrado', 'success');
         $this->redirect('/professores/listar');
     }
 
@@ -73,6 +75,7 @@ class ProfessorController extends AbstractController
 
                 // die('Vish, aconteceu um erro');
             }
+            WebNotification::add('Aluno Editado', 'warning');
             $this->redirect('/professores/listar');
         }
     } 
@@ -82,6 +85,7 @@ class ProfessorController extends AbstractController
         $id = $_GET['id'];
         //$repository = new ProfessorRepository();
         $this->repository->excluir($id);
+        WebNotification::add('Aluno Removido', 'danger');
         $this->redirect("\professores\listar");
     }
 

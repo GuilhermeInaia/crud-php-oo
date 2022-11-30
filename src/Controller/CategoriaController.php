@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace App\Controller;
 use App\Model\Categoria;
+use App\Notification\WebNotification;
 use App\Repository\CategoriaRepository;
 use Dompdf\Dompdf;
 use Exception;
@@ -43,6 +44,7 @@ class CategoriaController extends AbstractController
         } catch (Exception) {
            
         }
+        WebNotification::add('Novo Aluno Cadastrado', 'success');
         $this->redirect('/categorias/listar');
     }
 
@@ -63,6 +65,7 @@ class CategoriaController extends AbstractController
             } catch(Exception $exception) {
     
             }
+            WebNotification::add('Aluno Editado', 'warning');
             $this->redirect('/categorias/listar');
         }
     }
@@ -71,6 +74,7 @@ class CategoriaController extends AbstractController
     {
         $id = $_GET['id'];
         // $repository = new CategoriaRepository();
+        WebNotification::add('Aluno Removido', 'danger');
         $this->repository->excluir($id);
         $this->redirect("\categorias\listar");
     }

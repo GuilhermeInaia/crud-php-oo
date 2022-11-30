@@ -1,8 +1,6 @@
 <?php
 
-use App\Connection\DataBaseConnection;
-
-include_once '../vendor/autoload.php'; // solicitando o composer que gerencie o carregamento automatioc dos arquivos
+include_once '../vendor/autoload.php'; // solicitando o composer que gerencie o carregamento automatico dos arquivos
 
 session_start();
 

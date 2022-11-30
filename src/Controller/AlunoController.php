@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace App\Controller;
 use App\Model\Aluno;
+use App\Notification\WebNotification;
 use App\Repository\AlunoRepository;
 use App\Security\UserSecurity;
 use Dompdf\Dompdf;
@@ -59,7 +60,7 @@ class AlunoController extends AbstractController
 
             // die('Aconteceu um erro que não sei');
         }
-
+        WebNotification::add('Novo Aluno Cadastrado', 'success');
         $this->redirect('/alunos/listar');
     }
 
@@ -90,6 +91,7 @@ class AlunoController extends AbstractController
 
                 die('Vish, aconteceu um erro');
             }
+            WebNotification::add('Aluno Editado', 'warning');
             $this->redirect('/alunos/listar');
         }
     }
@@ -99,6 +101,7 @@ class AlunoController extends AbstractController
         //$this->render('aluno/excluir');
         $id = $_GET['id'];
         //$repository = new AlunoRepository();
+        WebNotification::add('Aluno Removido', 'danger');
         $this->repository->excluir($id);
         $this->redirect("\alunos\listar");
     }

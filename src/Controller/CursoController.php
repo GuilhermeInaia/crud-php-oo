@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace App\Controller;
 use App\Model\Curso;
+use App\Notification\WebNotification;
 use App\Repository\CursoRepository;
 use Dompdf\Dompdf;
 use Exception;
@@ -44,6 +45,7 @@ class CursoController extends AbstractController
         } catch (Exception) {
            
         }
+        WebNotification::add('Novo Aluno Cadastrado', 'success');
         $this->redirect('/cursos/listar');
     }
 
@@ -64,6 +66,7 @@ class CursoController extends AbstractController
             } catch(Exception $exception) {
 
             }
+            WebNotification::add('Aluno Editado', 'warning');
             $this->redirect('/cursos/listar');
         }
     }
@@ -72,6 +75,7 @@ class CursoController extends AbstractController
     {
         $id = $_GET['id'];
         //$repository = new CursoRepository();
+        WebNotification::add('Aluno Removido', 'danger');
         $this->repository->excluir($id);
         $this->redirect("\cursos\listar");
     }
