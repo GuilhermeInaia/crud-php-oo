@@ -81,7 +81,7 @@ Dentro do diretório da aplicação, execute no terminal o comando.
 Isso criará um usuáro com as credenciais:
 |Nome|Email|Senha|
 | -  | -   | -   |
-| Administrador | admin@adimn.com | 123456 |
+| Administrador | admin@admin.com | 123456 |
 
 ### Executando a aplicação 
 Para executar e testar a aplicação, dentro do terminal execute:
