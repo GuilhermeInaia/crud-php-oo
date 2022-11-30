@@ -1,8 +1,8 @@
 # CRUD DE ESCOLAS
 
 Aplicação web do tipo monolitica criada com:
-- PHP para o backend  veersão ^7.4
-- HTML, CSS, Javascript pro frontend
+- PHP para o Back-End  versão ^7.4
+- HTML, CSS, Javascript para o Front-End
 - MySQL/MariaDB para o banco de dados
 
 ## Funcionalidades
