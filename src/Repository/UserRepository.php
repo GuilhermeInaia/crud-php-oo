@@ -28,7 +28,7 @@ class UserRepository
 
     public function findAll(): iterable
     {
-        $sql = 'SELECT * FROM ' . self::TABLE;
+        $sql = 'SELECT id, nome, email, perfil FROM ' . self::TABLE;
         $query = $this->pdo->query($sql);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_CLASS, User::class);
@@ -38,7 +38,6 @@ class UserRepository
     {
         $sql = "INSERT INTO " . self::TABLE . "(nome, email, senha, perfil)";
         $sql .= "VALUE ('{$user->nome}', '{$user->email}', '{$user->senha}', '{$user->perfil}')";
-
         $this->pdo->query($sql);
         return $user;
     }

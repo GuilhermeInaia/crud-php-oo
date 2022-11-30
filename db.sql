@@ -13,17 +13,6 @@ CREATE TABLE tb_alunos (
     cpf CHAR(11) UNIQUE NOT NULL
 );
 
-INSERT INTO tb_alunos (nome, matricula, email, status, genero, dataNascimento, cpf)
-VALUE ('Guilherme', '12', 'guilherme@gmail.com', true, 'Masculino', '1983-03-23', '23445767887'),
-('Priscila', '23', 'priscila@gmail.com', true, 'Femenino', '1953-07-03', '84733074394'),
-('Leandro', '34', 'leandro@gmail.com', true, 'Masculino', '1983-03-23', '29385473821');
-
-SELECT * FROM tb_alunos;
-
-------------------------------------------
-
-USE db_escola;
-
 CREATE TABLE tb_professores (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(45) NOT NULL,
@@ -33,17 +22,6 @@ CREATE TABLE tb_professores (
     cpf CHAR(11)
 );
 
-INSERT INTO tb_professores (nome, endereco, formacao, status,cpf)
-VALUE ('Alessandro', 'Rua 1', 'PHP', true, '23445767887'),
-('Allan', 'Rua 2', 'JavaScript', true, '84733074394'),
-('Gledson', 'Rua 3', 'React', true, '29385473821');
-
-SELECT * FROM tb_professores;
-
----------------------------------------
-
-USE db_escola;
-
 CREATE TABLE tb_cursos (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(55) NOT NULL,
@@ -52,32 +30,12 @@ CREATE TABLE tb_cursos (
     status TINYINT NOT NULL
 );
 
-INSERT INTO tb_cursos (nome, cargaHoraria, descricao, status)
-VALUE ('Desenvolvedor Full-Stack', '08:00 às 12:00', 'Curso Tecnico', true),
-('Marketing Digital', '13:00 às 16:00', 'Curso Tecnico', true),
-('Data Analytics', '18:00 às 22:00', 'Curso Tecnico', true);
-
-SELECT * FROM tb_cursos;
--------------------------------------------
-
-USE db_escola;
-
 CREATE TABLE tb_categorias (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(55) NOT NULL,
     vagas VARCHAR(55) NOT NULL,
     localidade VARCHAR (55) NOT NULL
 );
-
-INSERT INTO tb_categorias (nome, vagas, localidade)
-VALUE ('Desenvolvedor Full-Stack', '24', 'Aldeota'),
-('Marketing Digital', '24', 'Washington Soares'),
-('Data Analytics', '24', 'Aldeota');
-
-SELECT * FROM tb_categorias;
-
-----------------------------------------
-USE db_escola;
 
 CREATE TABLE tb_user (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -86,9 +44,3 @@ CREATE TABLE tb_user (
     senha VARCHAR (255) NOT NULL,
     perfil VARCHAR (55) NOT NULL
 );
-
-INSERT INTO tb_user (nome, eamil, senha, perfil)
-VALUE ('Guilherme', 'gui@yahoo.com', '1234', 'normal' );
-
-------------------------------------------------
-SELECT tb_cursos.nome, tb_cursos.cargaHoraria, tb_cursos.descricao, tb_cursos.status, tb_categorias.vagas, tb_categorias.localidade FROM tb_cursos INNER JOIN tb_categorias ON tb_cursos.id = tb_categorias.id
