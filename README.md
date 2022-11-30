@@ -58,7 +58,6 @@ Entre no seu cliente de banco de dados, e execute o comando:
 ```sql
 CREATE DATABASE db_escola;
 ```
-...
 #### Migrar a estrutura do banco de dados
 Ainda dentro do cliente de banco de dados, copie e cole o conteúdo do arquivo
 **db.sql** e execute.
