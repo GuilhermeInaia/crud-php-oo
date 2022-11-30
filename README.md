@@ -71,7 +71,7 @@ SHOW TABLES;
 Se o resultado for a lista de tabelas existente, então pronto.
 
 #### Configure as credencias de acesso
-Encontre o arquivo **/confg/database.php** e edite-o conforme as credencias
+Encontre o arquivo **/confg/database.php** e edite-o conforme as credenciais
 do seu usuário do banco de dados.
 
 ### Crie o primeiro usuário de acesso
